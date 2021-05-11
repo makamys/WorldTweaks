@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.ChunkProviderGenerate;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.terraingen.InitMapGenEvent;
 
 @Mod(modid = TreeNoise.MODID, version = TreeNoise.VERSION)
 public class TreeNoise
@@ -26,7 +28,14 @@ public class TreeNoise
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        
+        MinecraftForge.TERRAIN_GEN_BUS.register(this);
+    }
+    
+    @SubscribeEvent
+    public void meh(InitMapGenEvent e) {
+        if(e.type == InitMapGenEvent.EventType.VILLAGE) {
+            e.newGen = new MapGenNoVillage();
+        }
     }
     
     public static Field getField(Class clazz, String deobfName, String obfName){
