@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.ChunkProviderGenerate;
+import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
@@ -66,6 +67,10 @@ public class TreeNoise
         MinecraftForge.TERRAIN_GEN_BUS.register(this);
         
         tweakBOPBiomes();
+        
+        if(blockVillages) {
+            MapGenVillage.villageSpawnBiomes.clear();
+        }
     }
     
     public void tweakBOPBiomes() {
@@ -87,9 +92,7 @@ public class TreeNoise
     
     @SubscribeEvent
     public void meh(InitMapGenEvent e) {
-        if(blockVillages && e.type == InitMapGenEvent.EventType.VILLAGE) {
-            e.newGen = new MapGenNoVillage();
-        } else if(mineshaftChance != -1 && e.type == InitMapGenEvent.EventType.MINESHAFT) {
+        if(mineshaftChance != -1 && e.type == InitMapGenEvent.EventType.MINESHAFT) {
             e.newGen = new MapGenCustomMineshaft(mineshaftChance);
         }
     }
