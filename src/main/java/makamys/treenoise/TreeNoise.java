@@ -5,6 +5,7 @@ import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiome;
 import biomesoplenty.api.biome.BOPInheritedBiome;
+import biomesoplenty.common.biome.decoration.BOPOverworldBiomeDecorator;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -34,6 +35,9 @@ public class TreeNoise
     public static double treeCutoff;
     public static double treeDampener;
     
+    public static boolean disableQuicksand;
+    public static boolean disableMud;
+    
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -48,6 +52,9 @@ public class TreeNoise
         treeMultiplierSpread = config.get("Tree density options", "treeMultiplierSpread", 0.3).getDouble();
         treeCutoff = config.get("Tree density options", "treeCutoff", 15).getDouble();
         treeDampener = config.get("Tree density options", "treeDampenerAboveCutoff", 0.5).getDouble();
+        
+        disableQuicksand = config.get("BOP options", "disableQuicksand", true).getBoolean();
+        disableMud = config.get("BOP options", "disableMud", true).getBoolean();
         if(config.hasChanged()) {
             config.save();
         }
@@ -57,6 +64,25 @@ public class TreeNoise
     public void init(FMLInitializationEvent event)
     {
         MinecraftForge.TERRAIN_GEN_BUS.register(this);
+        
+        tweakBOPBiomes();
+    }
+    
+    public void tweakBOPBiomes() {
+        for(BiomeGenBase bgb : BiomeGenBase.getBiomeGenArray()) {
+            if (bgb instanceof BOPBiome<?>) {
+                BiomeDecorator bd = getBOPBiomeDecorator(bgb, false);
+                if(bd instanceof BOPOverworldBiomeDecorator) {
+                    BOPOverworldBiomeDecorator bopBd = (BOPOverworldBiomeDecorator)bd;
+                    if(disableQuicksand) {
+                        bopBd.bopFeatures.generateQuicksand = false;
+                    }
+                    if(disableMud) {
+                        bopBd.bopFeatures.mudPerChunk = 0;
+                    }
+                }
+            }
+        }
     }
     
     @SubscribeEvent
@@ -79,24 +105,29 @@ public class TreeNoise
         return null;
     }
     
+    public static BiomeDecorator getBOPBiomeDecorator(BiomeGenBase biomegenbase, boolean followInherited) {
+        BiomeDecorator bd = null;
+        try {
+            if (followInherited && biomegenbase instanceof BOPInheritedBiome<?>) {
+                Field inheritedBiomeField = BOPInheritedBiome.class.getDeclaredField("inheritedBiome");
+                inheritedBiomeField.setAccessible(true);
+                bd = ((BiomeGenBase) inheritedBiomeField.get(biomegenbase)).theBiomeDecorator;
+            } else {
+                bd = (BiomeDecorator) getField(biomegenbase.getClass(), "theBiomeDecorator", "field_76760_I").get(biomegenbase);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bd;
+    }
+    
     public static void redirectDecorate(BiomeGenBase biomegenbase, World world, Random rand, int k, int l, ChunkProviderGenerate cpg, NoiseOctavesBeta myNoise) {
         BiomeDecorator bd = null;
         int trees = 0;
         if(doTreeDensityModification) {
             bd = biomegenbase.theBiomeDecorator;
             if (biomegenbase instanceof BOPBiome<?>) {
-                try {
-                    if (biomegenbase instanceof BOPInheritedBiome<?>) {
-                        Field inheritedBiomeField = BOPInheritedBiome.class.getDeclaredField("inheritedBiome");
-                        inheritedBiomeField.setAccessible(true);
-                        bd = ((BiomeGenBase) inheritedBiomeField.get(biomegenbase)).theBiomeDecorator;
-                    } else {
-                        bd = (BiomeDecorator) getField(biomegenbase.getClass(), "theBiomeDecorator", "field_76760_I").get(biomegenbase);
-                        // XXX get this properly
-                                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                bd = getBOPBiomeDecorator(biomegenbase, true);
             }
             trees = bd.treesPerChunk;
             double d = 0.5D;
