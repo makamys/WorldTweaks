@@ -29,6 +29,17 @@ public class TreeNoise
         
     }
     
+    public static Field getField(Class clazz, String deobfName, String obfName){
+        try {
+            return clazz.getField(deobfName);
+        } catch(Exception e) {}
+        try {
+            return clazz.getField(obfName);
+        } catch(Exception e) {}
+        System.out.println("Couldn't get field " + deobfName + " / " + obfName + " in class " + clazz);
+        return null;
+    }
+    
     public static void redirectDecorate(BiomeGenBase biomegenbase, World world, Random rand, int k, int l, ChunkProviderGenerate cpg, NoiseOctavesBeta myNoise) {
         BiomeDecorator bd = biomegenbase.theBiomeDecorator;
         if (biomegenbase instanceof BOPBiome<?>) {
@@ -38,18 +49,16 @@ public class TreeNoise
                     inheritedBiomeField.setAccessible(true);
                     bd = ((BiomeGenBase) inheritedBiomeField.get(biomegenbase)).theBiomeDecorator;
                 } else {
-                    bd = (BiomeDecorator) biomegenbase.getClass().getField("theBiomeDecorator").get(biomegenbase);
+                    bd = (BiomeDecorator) getField(biomegenbase.getClass(), "theBiomeDecorator", "field_76760_I").get(biomegenbase);
                     // XXX get this properly
-                }
+                                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            bd = biomegenbase.theBiomeDecorator;
         }
         int trees = bd.treesPerChunk;
         double d = 0.5D;
-        int k4 = (int) ((myNoise.func_806_a((double) k * d, (double) l * d) / 8D + rand.nextDouble() * 4D + 4D) / 3D);
+        int k4 = (int) ((myNoise.func_806_a((double) k * d, (double) l * d) / 8D + rand.nextDouble() * 4D + 4D) * (3.0/9.0));
         // -3 ~ +3
         int newTrees = (int) (trees * (5 + k4) / 10f);
         if (newTrees > 15) {

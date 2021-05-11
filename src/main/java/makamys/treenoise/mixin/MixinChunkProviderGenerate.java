@@ -28,7 +28,7 @@ abstract class MixinChunkProviderGenerate {
     
     @Inject(method = "<init>*", at = @At("RETURN"))
     private void onConstructed(World world, long p2, boolean p3, CallbackInfo ci) {
-        myNoise = new NoiseOctavesBeta(rand, 8); 
+        myNoise = new NoiseOctavesBeta(rand, 8);
     }
     
     @Redirect(method = "populate", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/BiomeGenBase;decorate(Lnet/minecraft/world/World;Ljava/util/Random;II)V"))
