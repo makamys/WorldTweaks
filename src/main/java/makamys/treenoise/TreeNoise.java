@@ -38,6 +38,7 @@ public class TreeNoise
     
     public static boolean disableQuicksand;
     public static boolean disableMud;
+    public static boolean disablePoisonIvy;
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -56,6 +57,7 @@ public class TreeNoise
         
         disableQuicksand = config.get("BOP options", "disableQuicksand", true).getBoolean();
         disableMud = config.get("BOP options", "disableMud", true).getBoolean();
+        disablePoisonIvy = config.get("BOP options", "disablePoisonIvy", true).getBoolean();
         if(config.hasChanged()) {
             config.save();
         }
@@ -84,6 +86,9 @@ public class TreeNoise
                     }
                     if(disableMud) {
                         bopBd.bopFeatures.mudPerChunk = 0;
+                    }
+                    if(disablePoisonIvy) {
+                        bopBd.bopFeatures.poisonIvyPerChunk = 0;
                     }
                 }
             }
