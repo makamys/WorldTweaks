@@ -102,6 +102,12 @@ public class TreeNoise
                                 (int)Math.ceil(bopBd.bopFeatures.tinyCactiPerChunk * bopFoliageMultiplier);
                         bopBd.bopFeatures.desertGrassPerChunk =
                                 (int)Math.ceil(bopBd.bopFeatures.desertGrassPerChunk * bopFoliageMultiplier);
+                        bopBd.bopFeatures.deadLeafPilesPerChunk =
+                                (int)Math.ceil(bopBd.bopFeatures.deadLeafPilesPerChunk * bopFoliageMultiplier);
+                        bopBd.bopFeatures.leafPilesPerChunk =
+                                (int)Math.ceil(bopBd.bopFeatures.leafPilesPerChunk * bopFoliageMultiplier);
+                        bopBd.bopFeatures.cloverPatchesPerChunk =
+                                (int)Math.ceil(bopBd.bopFeatures.cloverPatchesPerChunk * bopFoliageMultiplier);
                     }
                 }
             }
