@@ -39,6 +39,7 @@ public class TreeNoise
     public static boolean disableQuicksand;
     public static boolean disableMud;
     public static boolean disablePoisonIvy;
+    public static double bopFoliageMultiplier;
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -58,6 +59,8 @@ public class TreeNoise
         disableQuicksand = config.get("BOP options", "disableQuicksand", true).getBoolean();
         disableMud = config.get("BOP options", "disableMud", true).getBoolean();
         disablePoisonIvy = config.get("BOP options", "disablePoisonIvy", true).getBoolean();
+        
+        bopFoliageMultiplier = config.get("BOP options", "bopFoliageMultiplier", 1.0).getDouble();
         if(config.hasChanged()) {
             config.save();
         }
@@ -89,6 +92,16 @@ public class TreeNoise
                     }
                     if(disablePoisonIvy) {
                         bopBd.bopFeatures.poisonIvyPerChunk = 0;
+                    }
+                    if(bopFoliageMultiplier != 1) {
+                        bopBd.bopFeatures.bopGrassPerChunk =
+                                (int)Math.ceil(bopBd.bopFeatures.bopGrassPerChunk * bopFoliageMultiplier);
+                        bopBd.bopFeatures.bushesPerChunk =
+                                (int)Math.ceil(bopBd.bopFeatures.bushesPerChunk * bopFoliageMultiplier);
+                        bopBd.bopFeatures.tinyCactiPerChunk =
+                                (int)Math.ceil(bopBd.bopFeatures.tinyCactiPerChunk * bopFoliageMultiplier);
+                        bopBd.bopFeatures.desertGrassPerChunk =
+                                (int)Math.ceil(bopBd.bopFeatures.desertGrassPerChunk * bopFoliageMultiplier);
                     }
                 }
             }
