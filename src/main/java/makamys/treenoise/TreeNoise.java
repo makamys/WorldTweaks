@@ -96,6 +96,8 @@ public class TreeNoise
                     if(bopFoliageMultiplier != 1) {
                         bopBd.bopFeatures.bopGrassPerChunk =
                                 (int)Math.ceil(bopBd.bopFeatures.bopGrassPerChunk * bopFoliageMultiplier);
+                        bopBd.grassPerChunk =
+                                (int)Math.ceil(bopBd.grassPerChunk * bopFoliageMultiplier);
                         bopBd.bopFeatures.bushesPerChunk =
                                 (int)Math.ceil(bopBd.bopFeatures.bushesPerChunk * bopFoliageMultiplier);
                         bopBd.bopFeatures.tinyCactiPerChunk =
