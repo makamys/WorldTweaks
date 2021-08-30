@@ -47,20 +47,20 @@ public class TreeNoise
         Configuration config = new Configuration(event.getSuggestedConfigurationFile());
         
         config.load();
-        mineshaftChance = config.get("Structure options", "mineshaftChance", 0.004D, "-1 to disable modification").getDouble();
-        blockVillages = config.get("Structure options", "noVillages", true).getBoolean();
+        mineshaftChance = config.getFloat("mineshaftChance", "Structure options", 0.004f, -1f, 1f, "Vanilla value: 0.004. Set to -1 to disable modification");
+        blockVillages = config.getBoolean("disableVillages", "Structure options", true, "");
         
-        doTreeDensityModification = config.get("Tree density options", "doTreeDensityModification", true).getBoolean();
-        treeMultiplierBase = config.get("Tree density options", "treeMultiplierBase", 0.5).getDouble();
-        treeMultiplierSpread = config.get("Tree density options", "treeMultiplierSpread", 0.3).getDouble();
-        treeCutoff = config.get("Tree density options", "treeCutoff", 15).getDouble();
-        treeDampener = config.get("Tree density options", "treeDampenerAboveCutoff", 0.5).getDouble();
+        doTreeDensityModification = config.getBoolean("doTreeDensityModification", "Tree density options", true, "The number of trees per chunk will be modified by a noise-based value. The other settings in this category only apply if this is set to true");
+        treeMultiplierBase = config.getFloat("treeMultiplierBase", "Tree density options", 0.5f, 0.0f, Float.MAX_VALUE, "");
+        treeMultiplierSpread = config.getFloat("treeMultiplierSpread", "Tree density options", 0.3f, 0.0f, Float.MAX_VALUE, "");
+        treeCutoff = config.getFloat("treeCutoff", "Tree density options", 15, 0, Integer.MAX_VALUE, "");
+        treeDampener = config.getFloat("treeDampenerAboveCutoff", "Tree density options", 0.5f, 0f, Float.MAX_VALUE, "");
         
-        disableQuicksand = config.get("BOP options", "disableQuicksand", true).getBoolean();
-        disableMud = config.get("BOP options", "disableMud", true).getBoolean();
-        disablePoisonIvy = config.get("BOP options", "disablePoisonIvy", true).getBoolean();
+        disableQuicksand = config.getBoolean("disableQuicksand", "BOP options", true, "");
+        disableMud = config.getBoolean("disableMud", "BOP options", true, "");
+        disablePoisonIvy = config.getBoolean("disablePoisonIvy", "BOP options", true, "");
         
-        bopFoliageMultiplier = config.get("BOP options", "bopFoliageMultiplier", 1.0).getDouble();
+        bopFoliageMultiplier = config.getFloat("bopFoliageMultiplier", "BOP options", 0.1f, 0f, Float.MAX_VALUE, "The number of BoP foliage per chunk will be multiplied by this.");
         if(config.hasChanged()) {
             config.save();
         }
