@@ -7,6 +7,7 @@ import biomesoplenty.api.biome.BOPBiome;
 import biomesoplenty.api.biome.BOPInheritedBiome;
 import biomesoplenty.common.biome.decoration.BOPOverworldBiomeDecorator;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -71,7 +72,9 @@ public class TreeNoise
     {
         MinecraftForge.TERRAIN_GEN_BUS.register(this);
         
-        tweakBOPBiomes();
+        if(Loader.isModLoaded("BiomesOPlenty")) {
+            tweakBOPBiomes();
+        }
         
         if(blockVillages) {
             MapGenVillage.villageSpawnBiomes.clear();
