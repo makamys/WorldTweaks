@@ -158,7 +158,7 @@ public class TreeNoise
         int trees = 0;
         if(doTreeDensityModification) {
             bd = biomegenbase.theBiomeDecorator;
-            if (biomegenbase instanceof BOPBiome<?>) {
+            if (Loader.isModLoaded("BiomesOPlenty") && biomegenbase instanceof BOPBiome<?>) {
                 bd = getBOPBiomeDecorator(biomegenbase, true);
             }
             trees = bd.treesPerChunk;
