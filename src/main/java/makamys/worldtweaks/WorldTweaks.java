@@ -1,4 +1,4 @@
-package makamys.treenoise;
+package makamys.worldtweaks;
 
 import java.lang.reflect.Field;
 import java.util.Random;
@@ -13,7 +13,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import makamys.treenoise.lib.owg.noise.NoiseOctavesBeta;
+import makamys.worldtweaks.lib.owg.noise.NoiseOctavesBeta;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -23,10 +23,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 
-@Mod(modid = TreeNoise.MODID, version = TreeNoise.VERSION)
-public class TreeNoise
+@Mod(modid = WorldTweaks.MODID, version = WorldTweaks.VERSION)
+public class WorldTweaks
 {
-    public static final String MODID = "treenoise";
+    public static final String MODID = "worldtweaks";
     public static final String VERSION = "0.0";
     
     public static boolean doTreeDensityModification;

@@ -1,4 +1,4 @@
-package makamys.treenoise;
+package makamys.worldtweaks;
 
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 

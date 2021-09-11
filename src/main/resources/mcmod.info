@@ -1,8 +1,8 @@
 [
 {
-  "modid": "treenoise",
-  "name": "TreeNoise",
-  "description": "Use noise-based density for tree distribution",
+  "modid": "worldtweaks",
+  "name": "WorldTweaks",
+  "description": "Lets you tweak and disable various parts of vanilla and BoP worldgen.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

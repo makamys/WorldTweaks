@@ -1,4 +1,4 @@
-package makamys.treenoise.mixin;
+package makamys.worldtweaks.mixin;
 
 import java.util.Random;
 
@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import makamys.treenoise.TreeNoise;
-import makamys.treenoise.lib.owg.noise.NoiseOctavesBeta;
+import makamys.worldtweaks.WorldTweaks;
+import makamys.worldtweaks.lib.owg.noise.NoiseOctavesBeta;
 
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,7 +33,7 @@ abstract class MixinChunkProviderGenerate {
     
     @Redirect(method = "populate", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/BiomeGenBase;decorate(Lnet/minecraft/world/World;Ljava/util/Random;II)V"))
     private void redirectPopulate(BiomeGenBase bgb, World world, Random random, int a, int b) {
-        TreeNoise.redirectDecorate(bgb, world, random, a, b, ChunkProviderGenerate.class.cast(this), myNoise);
+        WorldTweaks.redirectDecorate(bgb, world, random, a, b, ChunkProviderGenerate.class.cast(this), myNoise);
         
     }
     

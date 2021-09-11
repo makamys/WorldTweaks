@@ -1,8 +1,8 @@
 {
     "required": true,
     "minVersion": "0.6",
-    "package": "makamys.treenoise.mixin",
-    "refmap": "treenoise.mixin.refmap.json",
+    "package": "makamys.worldtweaks.mixin",
+    "refmap": "worldtweaks.mixin.refmap.json",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
         "MixinChunkProviderGenerate"

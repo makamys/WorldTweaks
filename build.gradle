@@ -34,8 +34,8 @@ configurations {
 apply plugin: 'forge'
 
 version = "0.0"
-group= "makamys.treenoise" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "treenoise"
+group= "makamys.worldtweaks" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "worldtweaks"
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
@@ -54,12 +54,12 @@ dependencies {
     //embed 'com.google.guava:guava:21.0'
 }
 
-def outRefMapFile = tasks.compileJava.temporaryDir.toString() + "/treenoise.mixin.refmap.json" // 1.7.10 mixin compatibility
+def outRefMapFile = tasks.compileJava.temporaryDir.toString() + "/worldtweaks.mixin.refmap.json" // 1.7.10 mixin compatibility
 
 jar {
     manifest {
         attributes (
-            'MixinConfigs': 'treenoise.mixin.json',
+            'MixinConfigs': 'worldtweaks.mixin.json',
             'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
             'TweakOrder': 0,
             

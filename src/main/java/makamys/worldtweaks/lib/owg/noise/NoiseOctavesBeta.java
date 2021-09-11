@@ -2,7 +2,7 @@
  * From ted80's Old World Gen (https://github.com/Ted80-Minecraft-Mods/Old-World-Gen)
  */
 
-package makamys.treenoise.lib.owg.noise;
+package makamys.worldtweaks.lib.owg.noise;
 
 import java.util.Random;
 
