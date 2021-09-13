@@ -4,7 +4,7 @@
   "name": "WorldTweaks",
   "description": "Lets you tweak and disable various parts of vanilla and BoP worldgen.",
   "version": "${version}",
-  "mcversion": "${mcversion}",
+  "mcversion": "${minecraft_version}",
   "url": "",
   "updateUrl": "",
   "authorList": ["makamys"],
