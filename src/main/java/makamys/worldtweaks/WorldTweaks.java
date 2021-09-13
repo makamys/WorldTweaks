@@ -30,17 +30,17 @@ public class WorldTweaks
     public static final String VERSION = "0.0";
     
     public static boolean doTreeDensityModification;
-    public static double mineshaftChance;
+    public static float mineshaftChance;
     public static boolean blockVillages;
-    public static double treeMultiplierBase;
-    public static double treeMultiplierSpread;
-    public static double treeCutoff;
-    public static double treeDampener;
+    public static float treeMultiplierBase;
+    public static float treeMultiplierSpread;
+    public static float treeCutoff;
+    public static float treeDampener;
     
     public static boolean disableQuicksand;
     public static boolean disableMud;
     public static boolean disablePoisonIvy;
-    public static double bopFoliageMultiplier;
+    public static float bopFoliageMultiplier;
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
