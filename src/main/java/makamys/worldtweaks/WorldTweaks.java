@@ -27,7 +27,7 @@ import net.minecraftforge.event.terraingen.InitMapGenEvent;
 public class WorldTweaks
 {
     public static final String MODID = "worldtweaks";
-    public static final String VERSION = "0.0";
+    public static final String VERSION = "@VERSION@";
     
     public static boolean doTreeDensityModification;
     public static float mineshaftChance;
