@@ -48,7 +48,7 @@ public class WorldTweaks
         Configuration config = new Configuration(event.getSuggestedConfigurationFile());
         
         config.load();
-        mineshaftChance = config.getFloat("mineshaftChance", "Structure options", 0.004f, -1f, 1f, "Vanilla value: 0.004. Set to -1 to disable modification");
+        mineshaftChance = config.getFloat("mineshaftChance", "Structure options", -1f, -1f, 1f, "Vanilla value: 0.004. Set to -1 to disable modification");
         blockVillages = config.getBoolean("disableVillages", "Structure options", false, "");
         
         doTreeDensityModification = config.getBoolean("doTreeDensityModification", "Tree density options", false, "The number of trees per chunk will be modified by a noise-based value. The other settings in this category only apply if this is set to true");
