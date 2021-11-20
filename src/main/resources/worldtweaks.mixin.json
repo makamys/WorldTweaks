@@ -4,7 +4,5 @@
     "package": "makamys.worldtweaks.mixin",
     "refmap": "worldtweaks.mixin.refmap.json",
     "compatibilityLevel": "JAVA_8",
-    "mixins": [
-        "MixinChunkProviderGenerate"
-    ]
+    "plugin": "makamys.worldtweaks.MixinConfigPlugin"
 }

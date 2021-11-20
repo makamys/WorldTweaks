@@ -28,30 +28,16 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 
-@Mod(modid = WorldTweaks.MODID, version = WorldTweaks.VERSION)
+import static makamys.worldtweaks.Config.*;
+
+@Mod(modid = Constants.MODID, version = Constants.VERSION)
 public class WorldTweaks
 {
-    public static final String MODID = "worldtweaks";
-    public static final String VERSION = "@VERSION@";
-    
-    public static boolean doTreeDensityModification;
-    public static float mineshaftChance;
-    public static boolean blockVillages;
-    public static boolean disableDungeons;
-    public static float treeMultiplierBase;
-    public static float treeMultiplierSpread;
-    public static float treeCutoff;
-    public static float treeDampener;
-    
-    public static boolean disableQuicksand;
-    public static boolean disableMud;
-    public static boolean disablePoisonIvy;
-    public static float bopFoliageMultiplier;
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        reloadConfig();
+        Config.reload();
     }
     
     @EventHandler
@@ -70,31 +56,7 @@ public class WorldTweaks
     
     @EventHandler
     public void init(FMLServerAboutToStartEvent event) {
-        reloadConfig();
-    }
-    
-    private void reloadConfig() {
-        Configuration config = new Configuration(new File(Launch.minecraftHome, "config/" + MODID + ".cfg"));
-        
-        config.load();
-        mineshaftChance = config.getFloat("mineshaftChance", "Structure options", -1f, -1f, 1f, "Vanilla value: 0.004. Set to -1 to disable modification");
-        blockVillages = config.getBoolean("disableVillages", "Structure options", false, "");
-        disableDungeons = config.getBoolean("disableDungeons", "Structure options", false, "");
-        
-        doTreeDensityModification = config.getBoolean("doTreeDensityModification", "Tree density options", false, "The number of trees per chunk will be modified by a noise-based value. The other settings in this category only apply if this is set to true");
-        treeMultiplierBase = config.getFloat("treeMultiplierBase", "Tree density options", 0.5f, 0.0f, Float.MAX_VALUE, "");
-        treeMultiplierSpread = config.getFloat("treeMultiplierSpread", "Tree density options", 0.3f, 0.0f, Float.MAX_VALUE, "");
-        treeCutoff = config.getFloat("treeCutoff", "Tree density options", 15, 0, Integer.MAX_VALUE, "");
-        treeDampener = config.getFloat("treeDampenerAboveCutoff", "Tree density options", 0.5f, 0f, Float.MAX_VALUE, "");
-        
-        disableQuicksand = config.getBoolean("disableQuicksand", "BOP options", false, "");
-        disableMud = config.getBoolean("disableMud", "BOP options", false, "");
-        disablePoisonIvy = config.getBoolean("disablePoisonIvy", "BOP options", false, "");
-        
-        bopFoliageMultiplier = config.getFloat("bopFoliageMultiplier", "BOP options", 1f, 0f, Float.MAX_VALUE, "The number of BoP foliage per chunk will be multiplied by this.");
-        if(config.hasChanged()) {
-            config.save();
-        }
+        Config.reload();
     }
     
     public void tweakBOPBiomes() {
