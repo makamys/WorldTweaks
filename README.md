@@ -5,6 +5,8 @@
 This mod lets you tweak and disable various parts of vanilla and BoP worldgen. There are options that let you:
 * Disable villages
 * Change mineshaft generation probability
+* Disable cave spider room generation in mineshafts
+* Disable dungeon generation
 * Use noise-based distribution for tree generation (similarly to Beta 1.7.3)
 * Tweak some BoP parameters:
   * Disable mud, quicksand, and poison ivy generation
