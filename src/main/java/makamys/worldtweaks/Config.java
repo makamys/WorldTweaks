@@ -29,6 +29,7 @@ public class Config {
         mineshaftChance = config.getFloat("mineshaftChance", "Structure options", -1f, -1f, 1f, "Vanilla value: 0.004. Set to -1 to disable modification");
         blockVillages = config.getBoolean("disableVillages", "Structure options", false, "");
         disableDungeons = config.getBoolean("disableDungeons", "Structure options", false, "");
+        disableMineshaftSpiders = config.getBoolean("disableMineshaftSpiders", "Structure options", false, "Disable generation of spider rooms in mineshafts");
         
         doTreeDensityModification = config.getBoolean("doTreeDensityModification", "Tree density options", false, "The number of trees per chunk will be modified by a noise-based value. The other settings in this category only apply if this is set to true");
         treeMultiplierBase = config.getFloat("treeMultiplierBase", "Tree density options", 0.5f, 0.0f, Float.MAX_VALUE, "");

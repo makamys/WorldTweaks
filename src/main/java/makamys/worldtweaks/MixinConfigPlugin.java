@@ -39,6 +39,9 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         if(Config.doTreeDensityModification) {
             mixins.add("MixinChunkProviderGenerate");
         }
+        if(Config.disableMineshaftSpiders) {
+            mixins.add("MixinStructureMineshaftPieces_Corridor");
+        }
         
         return mixins;
     }
