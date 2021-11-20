@@ -1,5 +1,6 @@
 package makamys.worldtweaks;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Random;
 
@@ -12,9 +13,11 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import makamys.worldtweaks.lib.owg.noise.NoiseOctavesBeta;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -48,7 +51,30 @@ public class WorldTweaks
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+        reloadConfig();
+    }
+    
+    @EventHandler
+    public void init(FMLInitializationEvent event)
+    {
+        MinecraftForge.TERRAIN_GEN_BUS.register(this);
+        
+        if(Loader.isModLoaded("BiomesOPlenty")) {
+            tweakBOPBiomes();
+        }
+        
+        if(blockVillages) {
+            MapGenVillage.villageSpawnBiomes.clear();
+        }
+    }
+    
+    @EventHandler
+    public void init(FMLServerAboutToStartEvent event) {
+        reloadConfig();
+    }
+    
+    private void reloadConfig() {
+        Configuration config = new Configuration(new File(Launch.minecraftHome, "config/" + MODID + ".cfg"));
         
         config.load();
         mineshaftChance = config.getFloat("mineshaftChance", "Structure options", -1f, -1f, 1f, "Vanilla value: 0.004. Set to -1 to disable modification");
@@ -68,20 +94,6 @@ public class WorldTweaks
         bopFoliageMultiplier = config.getFloat("bopFoliageMultiplier", "BOP options", 1f, 0f, Float.MAX_VALUE, "The number of BoP foliage per chunk will be multiplied by this.");
         if(config.hasChanged()) {
             config.save();
-        }
-    }
-    
-    @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-        MinecraftForge.TERRAIN_GEN_BUS.register(this);
-        
-        if(Loader.isModLoaded("BiomesOPlenty")) {
-            tweakBOPBiomes();
-        }
-        
-        if(blockVillages) {
-            MapGenVillage.villageSpawnBiomes.clear();
         }
     }
     
