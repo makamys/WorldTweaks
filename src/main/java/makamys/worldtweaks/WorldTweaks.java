@@ -13,6 +13,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.eventhandler.Event.Result;
 import makamys.worldtweaks.lib.owg.noise.NoiseOctavesBeta;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeDecorator;
@@ -22,6 +23,7 @@ import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
+import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 
 @Mod(modid = WorldTweaks.MODID, version = WorldTweaks.VERSION)
 public class WorldTweaks
@@ -32,6 +34,7 @@ public class WorldTweaks
     public static boolean doTreeDensityModification;
     public static float mineshaftChance;
     public static boolean blockVillages;
+    public static boolean disableDungeons;
     public static float treeMultiplierBase;
     public static float treeMultiplierSpread;
     public static float treeCutoff;
@@ -50,6 +53,7 @@ public class WorldTweaks
         config.load();
         mineshaftChance = config.getFloat("mineshaftChance", "Structure options", -1f, -1f, 1f, "Vanilla value: 0.004. Set to -1 to disable modification");
         blockVillages = config.getBoolean("disableVillages", "Structure options", false, "");
+        disableDungeons = config.getBoolean("disableDungeons", "Structure options", false, "");
         
         doTreeDensityModification = config.getBoolean("doTreeDensityModification", "Tree density options", false, "The number of trees per chunk will be modified by a noise-based value. The other settings in this category only apply if this is set to true");
         treeMultiplierBase = config.getFloat("treeMultiplierBase", "Tree density options", 0.5f, 0.0f, Float.MAX_VALUE, "");
@@ -123,6 +127,13 @@ public class WorldTweaks
     public void onInitMapGenEvent(InitMapGenEvent e) {
         if(mineshaftChance != -1 && e.type == InitMapGenEvent.EventType.MINESHAFT) {
             e.newGen = new MapGenCustomMineshaft(mineshaftChance);
+        }
+    }
+    
+    @SubscribeEvent
+    public void onPopulateChunkEvent(PopulateChunkEvent.Populate e) {
+        if(disableDungeons) {
+            e.setResult(Result.DENY);
         }
     }
     
