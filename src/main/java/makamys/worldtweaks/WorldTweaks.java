@@ -120,7 +120,7 @@ public class WorldTweaks
     }
     
     @SubscribeEvent
-    public void meh(InitMapGenEvent e) {
+    public void onInitMapGenEvent(InitMapGenEvent e) {
         if(mineshaftChance != -1 && e.type == InitMapGenEvent.EventType.MINESHAFT) {
             e.newGen = new MapGenCustomMineshaft(mineshaftChance);
         }
